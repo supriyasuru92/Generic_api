@@ -1,0 +1,35 @@
+instructions to install on sql
+
+1) Connect MySQL Server
+2) Update the settings.py >> 
+DATABASES = {  
+    'default': {  
+        'ENGINE': 'django.db.backends.mysql',  
+        'NAME': 'my_database',  
+        'USER': 'root',  
+        'PASSWORD': 'your_password',  
+        'HOST': '127.0.0.1',  
+        'PORT': '3306',  
+        'OPTIONS': {  
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
+        }  
+    }  
+}  
+
+replace the 'django.db.backends.sqlite3' to 'django.db.backends.mysql'.
+NAME indicates the name of the database we want to use.
+USER is the MYSQL username that has access to the Database and acts as a database administrator.
+PASSWORD is the password of the database. It will be created at the time of MySQL installation.
+'HOST' is '127.0.0.1' and 'PORT' '3306' points out that the MySQL databaseis hosted with the hostname '0.0.1' and listens to the specific port number is 3306.
+In the last line we use SET sql_mode = 'STATIC_TRANS_TABLES' which is used to handle the invalid or missing values from being stored in the database by INSERT and UPDATE statements.
+
+
+3)  Install mysqlclient package
+The mysqlclient is the Python interface to MySQL that allows Python project to connect to the MySQL server.
+
+So it is necessary to install mysqlclient package to establish the connection between the MySQL and Django. To install, 
+use the following command in the working directory. >> pip install mysqlclient  
+
+4) Run the migrate command >> python manage.py migrate  
+After running this command Django will automatically create the necessary tables such as auth_group, auth_user, auth_permission, etc. 
+It will also create the tables which are defined in the models.py file.
